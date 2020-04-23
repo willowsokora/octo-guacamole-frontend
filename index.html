@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>octo-guacamole</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item tab-link is-active" data-target="#home">octo-guacamole</a>
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <!-- Search -->
+                </div>
+                <div class="navbar-end">
+                    <a class="navbar-item tab-link" data-target="#campaigns">Campaigns</a>
+                    <a class="navbar-item tab-link" data-target="#cities">Cities</a>
+                    <a class="navbar-item tab-link" data-target="#database">Full database</a>
+                    <a class="navbar-item tab-link" data-target="#about">About</a>
+                    <a class="navbar-item tab-link" data-target="#template">Templates</a>
+                </div>
+            </div>
+        </nav>
+        <section class="section">
+            <div id="home" class="tab is-active">
+                <div class="hero is-large">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">Welcome to our website</h1>
+                            <h2 class="subtitle">We're collecting data on advertisements and spending and whatnot, someone will write a better blurb than this, maybe Jasmine?</h2>
+                            <button class="button tab-link" data-target="#campaigns">View Campaigns</button>
+                            <button class="button tab-link" data-target="#cities">View Cities</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="campaigns" class="tab container">
+                <h1 class="title">Campaigns</h1>
+            </div>
+            <div id="cities" class="tab">
+                <h1 class="title">Cities</h1>
+            </div>
+            <div id="database" class="tab">
+                <h1 class="title">Full database</h1>
+            </div>
+            <div id="about" class="tab">
+                <h1 class="title">About</h1>
+            </div>
+            <div id="template" class="tab">
+                <h1 class="title">Templates</h1>
+            </div>
+        </section>
+    </body>
+</html>
