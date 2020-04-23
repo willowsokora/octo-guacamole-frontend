@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    .container
+        h1.title Committees
+        table.table.is-fullwidth.is-striped
+            thead
+                tr
+                    th Name
+                    th Type
+                    th Election date
+                    th(colspan=2) Address
+            tbody
+                each committee in committees
+                    tr
+                        td= committee.name
+                        td= committee.type
+                        td= committee.election_date
+                        td= `${committee.address}, ${committee.city} ${committee.state}, ${committee.zip}`
+                        td.has-text-right
+                            a(href='/committees/' + committee.id) View details

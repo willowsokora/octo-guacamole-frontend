@@ -1,25 +1,8 @@
 const pug = require('pug')
 const express = require('express')
+const request = require('request')
 
 const app = express()
-
-let campaigns = [
-    {
-        name: 'Connor\'s Campaign',
-        total: 500,
-        id: 'a5a767c5-b678-4611-a4bb-0ee2f185ee38'
-    },
-    {
-        name: 'Jasmine\'s Campaign',
-        total: 300,
-        id: '003b18e3-bdaf-4fe8-8174-52b44eec24be'
-    },
-    {
-        name: 'Jonah\'s Campaign',
-        total: 1000,
-        id: 'eb7ecaa8-5add-44c2-83a0-bf7865ab49f5'
-    }
-]
 
 app.set('view engine', 'pug')
 app.set('views', './views')
@@ -30,16 +13,23 @@ app.get('/', (req, res) => {
     res.render('index');
 })
 
-app.get('/campaigns', (req, res) => {
-    res.render('campaigns', { campaigns: campaigns })
+app.get('/about', (req, res, next) => {
+    res.render('about')
 })
 
-app.get('/campaign/:campaign', (req, res, next) => {
-    for (campaign in campaigns) {
-        if (campaigns[campaign].id == req.params.campaign) {
-            return res.render('campaign', campaigns[campaign])
+app.get('/committees', (req, res) => {
+    request('https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/committees', { json: true }, (err, response, body) => {
+        if (err) {
+            return next()
         }
-    }
+        for (var i = 0; i < body.length; i++) {
+            body[i].election_date = new Date(body[i].election_date).toLocaleDateString('en-US')
+        }
+        res.render('committees', { committees: body })
+    })
+})
+
+app.get('/committees/:committee', (req, res, next) => {
     next()
 });
 
@@ -51,16 +41,43 @@ app.get('/cities/:city', (req, res, next) => {
     next()
 })
 
+app.get('/stations', (req, res, next) => {
+    request('https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/stations', { json: true }, (err, response, body) => {
+        if (err) {
+            return next()
+        }
+        res.render('stations', { stations: body })
+    })
+})
+
+app.get('/stations/:station', (req, res, next) => {
+    next()
+})
+
+app.get('/buyers', (req, res, next) => {
+    request('https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/buyers', { json: true }, (err, response, body) => {
+        if (err) {
+            return next()
+        }
+        res.render('buyers', { buyers: body })
+    })
+})
+
 app.get('/buyers/:buyer', (req, res, next) => {
     next()
-});
+})
+
+app.get('/contracts', (req, res, next) => {
+    request('https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts', { json: true }, (err, response, body) => {
+        if (err) {
+            return next()
+        }
+        res.render('contracts', { contracts: body })
+    })
+})
 
 app.get('/contracts/:contract', (req, res, next) => {
     next()
-});
-
-app.get('/about', (req, res, next) => {
-    res.render('about')
 })
 
 app.use((req, res) => {

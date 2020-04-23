@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    .container
+        h1.title Buyers
+        table.table.is-fullwidth.is-striped
+            thead
+                tr
+                    th Agency
+                    th Agent
+                    th(colspan=2) Address
+            tbody
+                each buyer in buyers
+                    tr
+                        td= buyer.agency
+                        td= buyer.agent
+                        td= `${buyer.address}, ${buyer.city} ${buyer.state}, ${buyer.zip}`
+                        td.has-text-right
+                            a(href=`/buyers/${buyer.id}`) View details
