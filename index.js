@@ -30,7 +30,12 @@ app.get('/committees', (req, res) => {
 })
 
 app.get('/committees/:committee', (req, res, next) => {
-    next()
+    request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/committees?id=${req.params.committee}`, { json: true }, (err, response, body) => {
+        if (err) {
+            return next()
+        }
+        res.render('committee', body)
+    })
 });
 
 app.get('/cities', (req, res, next) => {
@@ -51,7 +56,12 @@ app.get('/stations', (req, res, next) => {
 })
 
 app.get('/stations/:station', (req, res, next) => {
-    next()
+    request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/stations?id=${req.params.station}`, { json: true }, (err, response, body) => {
+        if (err) {
+            return next()
+        }
+        res.render('station', body)
+    })
 })
 
 app.get('/buyers', (req, res, next) => {
@@ -64,7 +74,12 @@ app.get('/buyers', (req, res, next) => {
 })
 
 app.get('/buyers/:buyer', (req, res, next) => {
-    next()
+    request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/buyers?id=${req.params.buyer}`, { json: true }, (err, response, body) => {
+        if (err) {
+            return next()
+        }
+        res.render('buyer', body)
+    })
 })
 
 app.get('/contracts', (req, res, next) => {
@@ -77,7 +92,12 @@ app.get('/contracts', (req, res, next) => {
 })
 
 app.get('/contracts/:contract', (req, res, next) => {
-    next()
+    request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts?id=${req.params.contract}`, { json: true }, (err, response, body) => {
+        if (err) {
+            return next()
+        }
+        res.render('contract', body)
+    })
 })
 
 app.use((req, res) => {
