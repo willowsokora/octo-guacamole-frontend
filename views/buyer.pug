@@ -7,5 +7,17 @@ block content
             .hero-body
                 .container
                     h1.title Buyer: #{agency}
-                    h2.subtitle= `Address: ${address}, ${city} ${state}, ${zip}`
+                    if address
+                        h2.subtitle #{address}
                     h2.subtitle Agent: #{agent}
+                    table.table.is-fullwidth.is-striped
+                        thead
+                            tr
+                                th(colspan=2) Metrics
+                        tbody
+                            tr
+                                td Total Raised
+                                td $#{gross}
+                            tr
+                                td Total ad spots purchased
+                                td #{spots}

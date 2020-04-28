@@ -8,14 +8,12 @@ block content
                 tr
                     th Name
                     th Type
-                    th Election date
-                    th(colspan=2) Address
+                    th(colspan=2) Election date
             tbody
                 each committee in committees
                     tr
                         td= committee.name
                         td= committee.type
                         td= committee.election_date
-                        td= `${committee.address}, ${committee.city} ${committee.state}, ${committee.zip}`
                         td.has-text-right
                             a(href='/committees/' + committee.id) View details

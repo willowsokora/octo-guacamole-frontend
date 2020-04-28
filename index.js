@@ -22,9 +22,6 @@ app.get('/committees', (req, res) => {
         if (err) {
             return next()
         }
-        for (var i = 0; i < body.length; i++) {
-            body[i].election_date = new Date(body[i].election_date).toLocaleDateString('en-US')
-        }
         res.render('committees', { committees: body })
     })
 })
@@ -34,7 +31,17 @@ app.get('/committees/:committee', (req, res, next) => {
         if (err) {
             return next()
         }
-        res.render('committee', body)
+        request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts?committee-id=${req.params.committee}`, { json: true }, (err, response, contracts) => {
+            var gross = 0
+            var spots = 0
+            contracts.forEach((contract) => {
+                gross += parseFloat(contract.gross_amount)
+                spots += parseInt(contract.number_of_spots) || 0
+            })
+            body.gross = gross.toFixed(2)
+            body.spots = spots
+            res.render('committee', body)
+        })
     })
 });
 
@@ -78,27 +85,37 @@ app.get('/buyers/:buyer', (req, res, next) => {
         if (err) {
             return next()
         }
-        res.render('buyer', body)
+        request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts?buyer-id=${req.params.buyer}`, { json: true }, (err, response, contracts) => {
+            var gross = 0
+            var spots = 0
+            contracts.forEach((contract) => {
+                gross += parseFloat(contract.gross_amount)
+                spots += parseInt(contract.number_of_spots) || 0
+            })
+            body.gross = gross.toFixed(2)
+            body.spots = spots
+            res.render('buyer', body)
+        })
     })
 })
 
-app.get('/contracts', (req, res, next) => {
-    request('https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts', { json: true }, (err, response, body) => {
-        if (err) {
-            return next()
-        }
-        res.render('contracts', { contracts: body })
-    })
-})
+// app.get('/contracts', (req, res, next) => {
+//     request('https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts', { json: true }, (err, response, body) => {
+//         if (err) {
+//             return next()
+//         }
+//         res.render('contracts', { contracts: body })
+//     })
+// })
 
-app.get('/contracts/:contract', (req, res, next) => {
-    request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts?id=${req.params.contract}`, { json: true }, (err, response, body) => {
-        if (err) {
-            return next()
-        }
-        res.render('contract', body)
-    })
-})
+// app.get('/contracts/:contract', (req, res, next) => {
+//     request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts?id=${req.params.contract}`, { json: true }, (err, response, body) => {
+//         if (err) {
+//             return next()
+//         }
+//         res.render('contract', body)
+//     })
+// })
 
 app.use((req, res) => {
     res.render('404')
