@@ -12,12 +12,18 @@ block content
                     h2.subtitle Agent: #{agent}
                     table.table.is-fullwidth.is-striped
                         thead
-                            tr
-                                th(colspan=2) Metrics
+                            tr 
+                                th Related committees
+                                th Money spent
+                                th Ad spots purchased
                         tbody
+                            each committee in committees
+                                tr
+                                    td
+                                        a(href='/committees/' + committee.id) #{committee.name}
+                                    td $#{contracts[committee.id].gross.toFixed(2)}
+                                    td #{contracts[committee.id].spots}
                             tr
-                                td Total spent
-                                td $#{gross}
-                            tr
-                                td Total ad spots purchased
-                                td #{spots}
+                                td Total
+                                td $#{contracts.total.gross}
+                                td #{contracts.total.spots}

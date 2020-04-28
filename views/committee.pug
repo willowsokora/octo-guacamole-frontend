@@ -13,11 +13,18 @@ block content
                     table.table.is-fullwidth.is-striped
                         thead
                             tr
-                                th(colspan=2) Metrics
+                                th Related buyers
+                                th Money raised
+                                th Ad spots
                         tbody
+                            each buyer in buyers
+                                if contracts[buyer.id]
+                                    tr
+                                        td
+                                            a(href='/buyers/' + buyer.id) #{buyer.agency}
+                                        td $#{contracts[buyer.id].gross.toFixed(2)}
+                                        td #{contracts[buyer.id].spots}
                             tr
-                                td Total Raised
-                                td $#{gross}
-                            tr
-                                td Total ad spots
-                                td #{spots}
+                                td Total
+                                td $#{contracts.total.gross}
+                                td #{contracts.total.spots}
