@@ -14,6 +14,6 @@ block content
                     tr
                         td= buyer.agency
                         td= buyer.agent
-                        td= `${buyer.address}, ${buyer.city} ${buyer.state}, ${buyer.zip}`
+                        td= buyer.address
                         td.has-text-right
                             a(href=`/buyers/${buyer.id}`) View details
