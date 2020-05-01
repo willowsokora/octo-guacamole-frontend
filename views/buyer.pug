@@ -10,7 +10,7 @@ block content
                     if address
                         h2.subtitle #{address}
                     h2.subtitle Agent: #{agent}
-                    if Object.keys(countracts).length == 0
+                    if !contracts
                         p There are no related contracts for this buyer
                     else
                         table.table.is-fullwidth.is-striped

@@ -44,9 +44,7 @@ app.get('/committees/:committee', (req, res, next) => {
                     result[item.buyer_id].spots += spots
                     return result
                 }, {})
-            } catch {
-                body.contracts = {}
-            }
+            } catch {}
             request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/buyers?committee-id=${req.params.committee}`, { json: true }, (err, response, buyers) => {
                 body.buyers = buyers    
                 res.render('committee', body)
@@ -108,9 +106,7 @@ app.get('/buyers/:buyer', (req, res, next) => {
                     result[item.committee_id].spots += spots
                     return result
                 }, {})
-            } catch {
-                body.contracts = {}
-            }
+            } catch {}
             request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/committees?buyer-id=${req.params.buyer}`, { json: true }, (err, response, committees) => {
                 body.committees = committees    
                 res.render('buyer', body)
