@@ -32,7 +32,7 @@ app.get('/committees/:committee', (req, res, next) => {
             return next()
         }
         request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts?committee-id=${req.params.committee}`, { json: true }, (err, response, contracts) => {
-            if (!err) {    
+            try {    
                 body.contracts = contracts.reduce((result, item) => {
                     var gross = parseFloat(item.gross_amount)
                     var spots = parseInt(item.number_of_spots) || 0
@@ -44,7 +44,7 @@ app.get('/committees/:committee', (req, res, next) => {
                     result[item.buyer_id].spots += spots
                     return result
                 }, {})
-            } else {
+            } catch {
                 body.contracts = {}
             }
             request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/buyers?committee-id=${req.params.committee}`, { json: true }, (err, response, buyers) => {
@@ -96,7 +96,7 @@ app.get('/buyers/:buyer', (req, res, next) => {
             return next()
         }
         request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/contracts?buyer-id=${req.params.buyer}`, { json: true }, (err, response, contracts) => {
-            if (!err) {
+            try {
                 body.contracts = contracts.reduce((result, item) => {
                     var gross = parseFloat(item.gross_amount)
                     var spots = parseInt(item.number_of_spots) || 0
@@ -108,7 +108,7 @@ app.get('/buyers/:buyer', (req, res, next) => {
                     result[item.committee_id].spots += spots
                     return result
                 }, {})
-            } else {
+            } catch {
                 body.contracts = {}
             }
             request(`https://l83v1lhe72.execute-api.us-east-2.amazonaws.com/dev/committees?buyer-id=${req.params.buyer}`, { json: true }, (err, response, committees) => {
