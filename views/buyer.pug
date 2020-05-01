@@ -10,20 +10,23 @@ block content
                     if address
                         h2.subtitle #{address}
                     h2.subtitle Agent: #{agent}
-                    table.table.is-fullwidth.is-striped
-                        thead
-                            tr 
-                                th Related committees
-                                th Money spent
-                                th Ad spots purchased
-                        tbody
-                            each committee in committees
+                    if Object.keys(countracts).length == 0
+                        p There are no related contracts for this buyer
+                    else
+                        table.table.is-fullwidth.is-striped
+                            thead
+                                tr 
+                                    th Related committees
+                                    th Money spent
+                                    th Ad spots purchased
+                            tbody
+                                each committee in committees
+                                    tr
+                                        td
+                                            a(href='/committees/' + committee.id) #{committee.name}
+                                        td $#{contracts[committee.id].gross.toFixed(2)}
+                                        td #{contracts[committee.id].spots}
                                 tr
-                                    td
-                                        a(href='/committees/' + committee.id) #{committee.name}
-                                    td $#{contracts[committee.id].gross.toFixed(2)}
-                                    td #{contracts[committee.id].spots}
-                            tr
-                                td Total
-                                td $#{contracts.total.gross}
-                                td #{contracts.total.spots}
+                                    td Total
+                                    td $#{contracts.total.gross}
+                                    td #{contracts.total.spots}

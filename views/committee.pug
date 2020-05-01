@@ -10,21 +10,24 @@ block content
                     if address
                         h2.subtitle #{address}
                     h2.subtitle Election date: #{election_date}
-                    table.table.is-fullwidth.is-striped
-                        thead
-                            tr
-                                th Related buyers
-                                th Money raised
-                                th Ad spots
-                        tbody
-                            each buyer in buyers
-                                if contracts[buyer.id]
-                                    tr
-                                        td
-                                            a(href='/buyers/' + buyer.id) #{buyer.agency}
-                                        td $#{contracts[buyer.id].gross.toFixed(2)}
-                                        td #{contracts[buyer.id].spots}
-                            tr
-                                td Total
-                                td $#{contracts.total.gross}
-                                td #{contracts.total.spots}
+                    if Object.keys(countracts).length == 0
+                        p There are no related contracts for this committee
+                    else
+                        table.table.is-fullwidth.is-striped
+                            thead
+                                tr
+                                    th Related buyers
+                                    th Money raised
+                                    th Ad spots
+                            tbody
+                                each buyer in buyers
+                                    if contracts[buyer.id]
+                                        tr
+                                            td
+                                                a(href='/buyers/' + buyer.id) #{buyer.agency}
+                                            td $#{contracts[buyer.id].gross.toFixed(2)}
+                                            td #{contracts[buyer.id].spots}
+                                tr
+                                    td Total
+                                    td $#{contracts.total.gross}
+                                    td #{contracts.total.spots}
