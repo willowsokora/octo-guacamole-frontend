@@ -21,11 +21,12 @@ block content
                                     th Ad spots purchased
                             tbody
                                 each committee in committees
-                                    tr
-                                        td
-                                            a(href='/committees/' + committee.id) #{committee.name}
-                                        td $#{contracts[committee.id].gross.toFixed(2)}
-                                        td #{contracts[committee.id].spots}
+                                    if contracts[committee.id]
+                                        tr
+                                            td
+                                                a(href='/committees/' + committee.id) #{committee.name}
+                                            td $#{contracts[committee.id].gross.toFixed(2)}
+                                            td #{contracts[committee.id].spots}
                                 tr
                                     td Total
                                     td $#{contracts.total.gross}
